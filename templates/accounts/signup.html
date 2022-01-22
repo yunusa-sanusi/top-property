@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="container col-4">
+  <div class="title-box-d py-4">
+    <h3 class="title-d">Signup</h3>
+  </div>
+  <div class="form">
+    <form class="form-a" action="" method="post">
+      <div class="row">
+        <div class="col-md-12 mb-2">
+          <!-- <div class="form-group">
+            <label class="pb-2" for="Type">Keyword</label>
+            <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+          </div> -->
+          {% csrf_token %}
+          {{ form.as_p }}
+        </div>
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-b">Signup</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
