@@ -8,10 +8,15 @@
         <h3 class="title-d">Edit Agent Profile</h3>
       </div>
       <div class="row">
-          {{form.as_p}}
-        <div class="col-md-12">
-          <button type="submit" class="btn btn-b">Login</button>
-        </div>
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ user_form.as_p }}
+          {{ agent_form.as_p }}
+          {{ social_account_form.as_p }}
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b">Update</button>
+          </div>
+        </form>
       </div>
     </div>
   </section>

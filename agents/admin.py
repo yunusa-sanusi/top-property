@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Agent, Social_Account
+from .models import Agent, SocialAccount
 
 admin.site.register(Agent)
-admin.site.register(Social_Account)
+admin.site.register(SocialAccount)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Agent
+from .models import Agent, SocialAccount
 
 
 class AgentForm(forms.ModelForm):
@@ -17,3 +17,18 @@ class AgentForm(forms.ModelForm):
     class Meta:
         model = Agent
         fields = ('address', 'age', 'phone_number', 'profile_picture', 'bio',)
+
+
+class SocialAccountForm(forms.ModelForm):
+    facebook = forms.URLField(label='Facebook', widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-lg form-control-a'}))
+    instagram = forms.URLField(label='Instagram', widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-lg form-control-a'}))
+    linkedin = forms.URLField(label='LinkedIn', widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-lg form-control-a'}))
+    twitter = forms.URLField(label='Twitter', widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-lg form-control-a'}))
+
+    class Meta:
+        model = SocialAccount
+        fields = ('facebook', 'instagram', 'linkedin', 'twitter',)

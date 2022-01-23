@@ -31,13 +31,16 @@ class Agent(models.Model):
         return f'Agent {self.user.username.capitalize()}'
 
 
-class Social_Account(models.Model):
+class SocialAccount(models.Model):
     class Meta:
         verbose_name_plural = 'Social Accounts'
 
     agent = models.ForeignKey(
         'Agent', on_delete=models.CASCADE, related_name='agent')
-    url = models.URLField()
+    facebook = models.URLField(null=True, blank=True)
+    instagram = models.URLField(null=True, blank=True)
+    linkedin = models.URLField(null=True, blank=True)
+    twitter = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.agent}'

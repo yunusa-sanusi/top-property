@@ -13,11 +13,6 @@
             <h1 class="title-single">{{ agent.user.first_name }} {{ agent.user.last_name }}</h1>
             <span class="color-text-a">Agent {{ agent.user.username }}</span>
           </div>
-          {% if request.user == agent.user %}
-          <div class="col-md-12">
-            <a href="{% url 'agents:agent-edit' %}" type="submit" class="btn btn-b">Edit Profile</a>
-          </div>
-          {% endif %}
         </div>
         <div class="col-md-12 col-lg-4">
           <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
@@ -53,7 +48,8 @@
               <div class="agent-info-box">
                 <div class="agent-title">
                   <div class="title-box-d">
-                    <h3 class="title-d">{{ agent.user.first_name }} {{ agent.user.last_name }}
+                    <h3 class="title-d">
+                      {{ agent.user.first_name }} {{ agent.user.last_name }}
                     </h3>
                   </div>
                 </div>
@@ -71,30 +67,35 @@
                       <span class="color-text-a"> {{ agent.user.email }}</span>
                     </p>
                   </div>
-                </div>
-                <div class="socials-footer">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="bi bi-facebook" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="bi bi-twitter" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="bi bi-instagram" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="bi bi-linkedin" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                  </ul>
+                  <div class="socials-footer">
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+                        <a href="{{ social_accounts.facebook }}" class="link-one">
+                          <i class="bi bi-facebook" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="{{ social_accounts.twitter }}" class="link-one">
+                          <i class="bi bi-twitter" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="{{ social_accounts.instagram }}" class="link-one">
+                          <i class="bi bi-instagram" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="{{ social_accounts.linkedin }}" class="link-one">
+                          <i class="bi bi-linkedin" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  {% if request.user == agent.user %}
+                  <div class="col-md-8">
+                    <a href="{% url 'agents:agent-edit' agent.slug %}" type="submit" class="btn btn-b">Edit Profile</a>
+                  </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
