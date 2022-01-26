@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from .models import Agent, SocialAccount
@@ -27,12 +28,12 @@ def agent_details_view(request, slug):
     return render(request, 'agents/agent-details.html', context)
 
 
+@login_required(login_url='accounts:login')
 def agent_edit_view(request, slug):
     # instances
     user = request.user
     agent = Agent.objects.get(slug=slug)
-    social_account = SocialAccount.objects.get(agent=agent)
-    # forms
+    social_account = SocialAccount.objects.get(agent=agent) or None
     agent_form = AgentForm(instance=agent)
     user_form = UpdateForm(instance=user)
     social_account_form = SocialAccountForm(instance=social_account)
@@ -41,7 +42,7 @@ def agent_edit_view(request, slug):
         return HttpResponseForbidden(f'<p>Not allowed. You are not authenticated as {agent.user}</p><a href="/agents/">Go back to agent list</a>')
     else:
         if request.method == 'POST':
-            agent_form = AgentForm(request.POST, instance=agent)
+            agent_form = AgentForm(request.POST, request.FILES, instance=agent)
             user_form = UpdateForm(request.POST, instance=user)
             social_account_form = SocialAccountForm(
                 request.POST, instance=social_account)

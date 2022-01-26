@@ -1,0 +1,22 @@
+{% extends '../base.html' %}
+{% block title %}Edit Agent{% endblock title %}
+{% block content %}
+<main id="main">
+  <section class="intro-single">
+    <div class="container col-sm-8 col-md-4">
+      <div class="title-box-d py-4 mx-auto">
+        <h3 class="title-d">Edit Property Details</h3>
+      </div>
+      <div class="row">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ property_form.as_p }}
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b">Update Property</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

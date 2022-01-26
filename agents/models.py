@@ -17,7 +17,9 @@ class Agent(models.Model):
     profile_picture = models.ImageField(
         upload_to='images/profile_pictures/', null=True)
     slug = AutoSlugField(
-        unique=True, populate_from='user')
+        unique=True, always_update=True, populate_from='user')
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     @property
     def image_url(self):

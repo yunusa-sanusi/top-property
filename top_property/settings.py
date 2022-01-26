@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # local apps
     'accounts.apps.AccountsConfig',
     'agents.apps.AgentsConfig',
+    'general.apps.GeneralConfig',
     'properties.apps.PropertiesConfig',
 ]
 

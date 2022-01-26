@@ -851,6 +851,10 @@ a:hover {
   opacity: 0.9;
 }
 
+.add-border-right {
+  border-right: 1px solid #ffffff;
+}
+
 /*======================================
 //--//-->   BOX COLAPSE
 ======================================*/
