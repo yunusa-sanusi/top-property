@@ -24,28 +24,13 @@ def property_create_view(request):
 
     if request.method == 'POST':
         amenity_form = AmenityForm(request.POST)
-        property_form = PropertyForm(request.POST)
+        property_form = PropertyForm(request.POST, request.FILES)
         property_image_form = PropertyImageForm(request.POST, request.FILES)
 
         if amenity_form.is_valid() and property_form.is_valid() and property_image_form.is_valid():
-            property_data = property_form.cleaned_data
-            property = Property.objects.create(
-                agent=agent,
-                address=property_data['address'],
-                city=property_data['city'],
-                country=property_data['country'],
-                zipcode=property_data['zipcode'],
-                beds=property_data['beds'],
-                baths=property_data['baths'],
-                garage=property_data['garage'],
-                area=property_data['area'],
-                description=property_data['description'],
-                price=property_data['price'],
-                property_picture=property_data['property_picture'],
-                video=property_data['video'],
-                property_type=property_data['property_type'],
-                status=property_data['status'],
-            )
+            property = property_form.save(commit=False)
+            property.agent = agent
+            property.save()
 
             amenities = amenity_form.cleaned_data['amenity'].split(',')
 
@@ -86,15 +71,15 @@ def property_update_view(request, slug):
 
     if request.user != property.agent.user:
         return HttpResponseForbidden(f'<p>Not allowed. You are not authenticated as {property.agent.user}</p><a href="/agents/">Go back to agent list</a>')
-    else:
-        if request.method == 'POST':
-            property_form = PropertyForm(
-                request.POST, request.FILES, instance=property)
 
-            if property_form.is_valid():
-                new_property = property_form.save()
+    if request.method == 'POST':
+        property_form = PropertyForm(
+            request.POST, request.FILES, instance=property)
 
-                return redirect('properties:property-detail', new_property.slug)
+        if property_form.is_valid():
+            new_property = property_form.save()
+
+            return redirect('properties:property-detail', new_property.slug)
 
     context = {
         'property_form': property_form,
@@ -108,9 +93,9 @@ def property_delete_view(request, slug):
     property = Property.objects.get(slug=slug)
     if request.user != property.agent.user:
         return HttpResponseForbidden(f'<p>Not allowed. You are not authenticated as {property.agent.user}</p><a href="/agents/">Go back to agent list</a>')
-    else:
-        if request.method == 'POST':
-            property.delete()
-            return redirect('properties:property-list')
+
+    if request.method == 'POST':
+        property.delete()
+        return redirect('properties:property-list')
 
     return render(request, 'properties/property-delete.html', {'property': property})

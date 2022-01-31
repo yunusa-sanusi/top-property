@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
 {% load static %}
+{% block title %}{{ property.address }}{% endblock title %}
 {% block content %}
 <main id="main">
 
@@ -172,7 +173,7 @@
                 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
             <div class="tab-pane fade" id="pills-plans" role="tabpanel" aria-labelledby="pills-plans-tab">
-              <img src="assets/img/plan2.jpg" alt="" class="img-fluid">
+              <img src="{% static 'img/plan2.jpg' %}" alt="" class="img-fluid">
             </div>
             <div class="tab-pane fade" id="pills-map" role="tabpanel" aria-labelledby="pills-map-tab">
               <iframe
